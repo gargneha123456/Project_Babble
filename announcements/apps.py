@@ -6,3 +6,4 @@ from django.apps import AppConfig
 
 class AnnouncementsConfig(AppConfig):
     name = 'announcements'
+    label = 'ann'

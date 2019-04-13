@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from accounts.models import student
 from django.db import models
 
 
@@ -16,4 +16,8 @@ class query(models.Model):
     Society_ID  = models.IntegerField()
 
 class answer(models.Model):
-    xyx
+    Answer_ID = models.IntegerField(primary_key=True)
+    QID = models.ForeignKey(query,on_delete=models.CASCADE)
+    Respondent_ID = models.ForeignKey(student,on_delete=models.CASCADE)
+    Answer = models.TextField()
+    Timestamp = models.DateTimeField()
