@@ -1,0 +1,166 @@
+{%  load static %}
+<!doctype html>
+<!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
+
+<!-- Mirrored from www.similaricons.com/demos/helper/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Apr 2019 13:44:00 GMT -->
+<head>
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Site Metas -->
+    <title>Babble</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{%  static 'dash/assets/images/apple-touch-icon.ico' %}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{%  static 'dash/assets/images/apple-touch-icon.ico' %}">
+
+    <!-- Material Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'dash/assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/bootstrap-material-design.css' %}">
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/ripples.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/font-awesome.min.css' %}">
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{%  static 'dash/style.css' %}">
+    <!-- Colors CSS -->
+    <link rel="stylesheet" href="{% static 'dash/assets/css/colors.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+</style>
+</head>
+<body>
+    
+   <div id="wrapper">
+        <section class="topbar-panel panel hidden-xs">
+            <!--<span class="clickable btn btn-raised btn-info"><i class="fa fa-angle-up"></i></span>-->
+
+        </section>
+
+        <header class="header">
+            <div class="container-fluid">
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">BABBLE</a>
+                        </div>
+                        <div class="navbar-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav navbar-nav">
+                                <li ><a href="/dashboard">Home</a></li>
+                                <li><a href="/myqueries">My Queries</a></li>
+                                <li ><a href="/resources">Resource Sharing</a></li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Clubs <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {%  for group in groups %}
+                                            {% if group.Is_Club %}
+                                                <li><a href="/associations/{{ group.Name }}"> {{ group.Name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Societies <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {%  for group in groups %}
+                                            {% if group.Is_Club == False %}
+                                                <li><a href="/associations/{{ group.Name }}"> {{group.Name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                            	<li><a href="#"><i class="fas fa-bell"></i></a></li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/profile">My Profile</a></li>
+
+                                        <li><a href="/settings">Change Password</a></li>
+                                        <li><a href="/">Logout</a></li>
+                                       
+                                    </ul>
+                                </li>
+                               <!-- <li><a href="#" data-toggle="modal" data-target="#LoginModal"><i class="material-icons">lock</i> Client Login</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div><!-- end container -->
+        </header><!-- end header -->
+        <center><h1>Change Password</h1></center>
+
+
+<div class="container">
+    <form action="/password_submit" method="POST">
+    <label for="fname">Old Password*</label>
+    <input type="password" id="oldpassword" name="oldpassword" placeholder="Your Old password.." required><br><br>
+
+    <label for="lname">New Password*</label>
+    <input type="password" id="newpassword" name="newpassword" placeholder="Your New Password.." required><br><br>
+
+    <label for="lname">Confirm Password*</label>
+    <input type="password" id="newpassword" name="newpassword1" placeholder="Confirm Password.." required><br><br>
+
+    <input type="submit" value="Save">
+  </form>
+</div>  
+</body>
+</html>

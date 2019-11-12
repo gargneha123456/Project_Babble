@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from accounts.models import student, society
+from accounts.models import student, group
 from django.db import models
 
 # Create your models here.
 class Announcement( models.Model ):
-    AID = models.IntegerField(primary_key=True)
-    CR_ID = models.ForeignKey(student, on_delete=models.CASCADE)
-    CID = models.ForeignKey(society, on_delete= models.CASCADE)
-    Subject = models.TextField()
+    AID = models.AutoField(primary_key=True)
+    CR = models.ForeignKey(student,on_delete=models.CASCADE,null = True, blank=True)
+    GID = models.ForeignKey(group, on_delete= models.CASCADE, null = True, blank=True)
+    Subject = models.TextField(null=True,blank=True)
     Timestamp = models.DateTimeField()
-    Content = models.TextField()
+    Content = models.TextField(null=True,blank = True)
+
+    def __str__(self):
+        return self.Subject

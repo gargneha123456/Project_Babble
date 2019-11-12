@@ -1,0 +1,252 @@
+{%  load static %}
+<!doctype html>
+<!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
+
+<!-- Mirrored from www.similaricons.com/demos/helper/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Apr 2019 13:44:00 GMT -->
+<head>
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Site Metas -->
+    <title>Babble</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{%  static 'dash/assets/images/apple-touch-icon.ico' %}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{%  static 'dash/assets/images/apple-touch-icon.ico' %}">
+
+    <!-- Material Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'dash/assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/bootstrap-material-design.css' %}">
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/ripples.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/font-awesome.min.css' %}">
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{%  static 'dash/style.css' %}">
+    <!-- Colors CSS -->
+    <link rel="stylesheet" href="{% static 'dash/assets/css/colors.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="">
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <img class="preloader" src="{%  static 'dash/assets/images/loader.gif' %}" alt="">
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+
+    <div id="wrapper">
+        <section class="topbar-panel panel hidden-xs">
+            <!--<span class="clickable btn btn-raised btn-info"><i class="fa fa-angle-up"></i></span>-->
+
+        </section>
+
+        <header class="header">
+            <div class="container-fluid">
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">BABBLE</a>
+                        </div>
+                        <div class="navbar-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav navbar-nav">
+                                <li ><a href="/dashboard">Home</a></li>
+                                <li><a href="/myqueries">My Queries</a></li>
+                                <li class="active"><a href="/resources">Resource Sharing</a></li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Clubs <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {%  for group in groups %}
+                                            {% if group.Is_Club %}
+                                                <li><a href="/associations/{{ group.Name }}"> {{ group.Name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Societies <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {%  for group in groups %}
+                                            {% if group.Is_Club == False %}
+                                                <li><a href="/associations/{{ group.Name }}"> {{group.Name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                
+
+                            </ul>
+                            
+                           <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown hasmenu">
+                                    <a href="#"><i class="fas fa-bell"></i></a>
+                                    <ul class ="dropdown-menu" style="color: #0b2e13">
+                                       {% for item in announcements %}
+                                            {% if item.CR %}
+                                                {% if item.CR.SID|make_list|slice:":5"|join:'' == instance.SID|make_list|slice:":5"|join:''  %}
+                                                    <li><a href="#">{{ item.Subject }}</a></li>
+                                                {% endif %}
+                                            {% else  %}
+                                                {% for member in members %}
+                                                    {% if item.GID.GID == member.GID.GID %}
+                                                        <li><a href="#">{{ item.Subject }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/profile">My Profile</a></li>
+                                        <li><a href="/settings">Change Password</a></li>
+                                        <li><a href="/">Logout</a></li>
+                                       
+                                    </ul>
+                                </li>
+                               <!-- <li><a href="#" data-toggle="modal" data-target="#LoginModal"><i class="material-icons">lock</i> Client Login</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div><!-- end container -->
+        </header><!-- end header -->
+		<br>
+		
+		
+		
+			<div style="float:left;width:30%;padding:0 20px">
+				<div class="widget clearfix" id="kryesore" style="overflow-y: scroll;">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Resource Requests</h3>
+						</div>
+						<div class="panel-body">
+							<div class="list-group list-group-no-icon">
+                                {% for resource in resources %}
+                                    {% if not resource.Available %}
+                                        <div class="list-group-item">
+                                            <div class="row-topic">
+                                                <header class="topic-title clearfix">
+                                                    <h3><a href="#">{{ resource.Details }}</a></h3>
+                                                    <div class ="pull-right">
+                                                        <form method = "POST">
+                                                            {% csrf_token %}
+                                                                 <button class="buttonx" ><span>Mark as Shared</span></button>
+                                                        </form>
+                                                    </div>
+                                                </header>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-separator"></div>
+                                    {% endif %}
+                                {% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class = "row">
+				<div class = "column" >
+					<div class="card containerxx">
+						  <img src="{% static 'dash/cprog.jpg'%}" alt="Avatar" style="width:100%;height:150px">
+						  <div class="containerx">
+						  
+							<h4><b>CSN 201</b></h4> 
+							<p>C Programming</p> 
+						  </div>
+						
+						<div class="overlay">
+								
+								<a href="#" class="icon" title="E-books">
+									<i class="fa fa-book" style="font-size:30px"></i>
+								</a>
+								<a href="#" class="icon" title="PPTs">
+									<i class="fa fa-file-powerpoint-o"style="font-size:30px"></i>
+								</a>
+								
+								<a href="#" class="icon" title="Sample papers">
+									<i class="fa fa-question-circle"style="font-size:30px"></i>
+								</a>
+								<a href="#" class="icon" title="Assignments">
+									<i class="fa fa-tasks" style="font-size:30px"></i>
+								</a>
+								
+							</div>
+							
+							
+							
+						
+					</div>
+				</div>
+				
+				<div class = "column" >
+					<div class="card containerxx">
+						  <img src="{% static 'dash/images.jpeg'%}" alt="Avatar" style="width:100%;height:150px">
+						  <div class="containerx">
+							<h4><b>CSN 204</b></h4> 
+							<p>Algorithms</p> 
+						  </div>
+						  
+						  <div class="overlay">
+								
+								<a href="#" class="icon" title="E-books">
+									<i class="fa fa-book" style="font-size:30px"></i>
+								</a>
+								<a href="#" class="icon" title="PPTs">
+									<i class="fa fa-file-powerpoint-o"style="font-size:30px"></i>
+								</a>
+								
+								<a href="#" class="icon" title="Sample papers">
+									<i class="fa fa-question-circle"style="font-size:30px"></i>
+								</a>
+								<a href="#" class="icon" title="Assignments">
+									<i class="fa fa-tasks" style="font-size:30px"></i>
+								</a>
+								
+							</div>
+					</div>
+				</div>
+				
+			</div>
+					
+		
+					
+	<script src="{% static 'dash/assets/js/jquery.js'%}"></script>
+    <script src="{% static 'dash/assets/js/bootstrap.js'%}"></script>
+    <script src="{% static 'dash/assets/js/ripples.min.js'%}"></script>
+    <script src="{% static 'dash/assets/js/material.min.js'%}"></script>
+    <script src="{% static 'dash/assets/js/custom.js'%}"></script>
+	
+
+</body>
+
+<!-- Mirrored from www.similaricons.com/demos/helper/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Apr 2019 13:44:11 GMT -->
+</html>

@@ -1,0 +1,96 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	
+    <title>Welcome!</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{%  static 'new/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{%  static 'new/css/style.css' %}">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <form class="signup-form" method="POST" id="signup-form"  >
+                {%  csrf_token %}
+                <h3></h3>
+                <fieldset>
+                    <span class="step-current"> <span class="step-current-content"><span class="step-number"><span>01</span>/02</span></span> </span>
+                    <div class="fieldset-flex">
+                        <figure>
+                            <img style="max-height:100%;max-width:100%;" src="{% static 'new/images/signup-img-1.png' %}" alt="">
+                        </figure>
+                        <div class="fieldset-content">
+                            <h2>Help secure your account</h2>
+						
+						<div class="form-group">
+                                <input type="password" name="pass1" id="new_pass" placeholder="New Password" />
+                        </div>
+						
+						<div class="form-group">
+                                <input type="password" name="pass2" id="pass_yes" placeholder="Confirm password" />
+                        </div>
+						
+						</div>
+					
+                            
+                    </div>
+                    
+                </fieldset>
+
+                <h3></h3>
+                <fieldset>
+                    <span class="step-current"><span class="step-current-content"><span class="step-number"><span>02</span>/02</span></span></span>
+                    <div class="fieldset-flex">
+                        <figure>
+                            <img src="{% static 'new/images/signup-img-3.png' %}" alt="">
+                        </figure>
+                        <div class="fieldset-content">
+                            <label class="form-label">Good to go ! Update your profile details</label>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" name="first_name" id="first_name" placeholder="First Name" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="last_name" id="last_name" placeholder="Last Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" placeholder="Email" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phone_number" id="phone_number" placeholder="Contact" />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+
+
+    <!-- JS -->
+    <script src="{% static 'new/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'new/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'new/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+    <script src="{% static 'new/vendor/jquery-steps/jquery.steps.min.js' %}"></script>
+    <script src="{% static 'new/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -10,3 +10,6 @@ class message(models.Model):
     Reciever_ID = models.ForeignKey(student, on_delete=models.CASCADE, related_name='r')
     Content = models.TextField()
     Timestamp = models.DateTimeField()
+
+    def __str__(self):
+        return self.Content

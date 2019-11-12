@@ -1,0 +1,474 @@
+{% load static %}
+<!doctype html>
+<!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
+
+<!-- Mirrored from www.similaricons.com/demos/helper/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Apr 2019 13:44:00 GMT -->
+<head>
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Site Metas -->
+    <title>Babble</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{% static 'dash/assets/images/apple-touch-icon.ico'%}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{%  static 'dash/assets/images/apple-touch-icon.ico'%}">
+    
+    <!-- Material Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'dash/assets/css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{%  static 'dash/assets/css/bootstrap-material-design.css'%}">
+    <link rel="stylesheet" href="{% static 'dash/assets/css/ripples.min.css'%}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="{% static 'dash/assets/css/font-awesome.min.css'%}">
+    
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'dash/style.css'%}">
+    <!-- Colors CSS -->
+    <link rel="stylesheet" href="{% static 'dash/assets/css/colors.css'%}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="">
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <img class="preloader" src="{% static 'dash/assets/images/loader.gif'%}" alt="">
+    </div><!-- end loader -->
+    <!-- END LOADER -->
+    
+    <div id="wrapper">
+        <section class="topbar-panel panel hidden-xs">
+            <!--<span class="clickable btn btn-raised btn-info"><i class="fa fa-angle-up"></i></span>-->
+           
+        </section>
+
+        <header class="header">
+            <div class="container-fluid">
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">BABBLE</a>
+                        </div>
+                        <div class="navbar-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav navbar-nav">
+                                <li ><a href="/dashboard">Home</a></li>
+                                <li><a href="/myqueries">My Queries</a></li>
+                                <li><a href="/resources">Resource Sharing</a></li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Clubs <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {%  for group in groups %}
+                                            {% if group.Is_Club %}
+                                                <li><a href="/associations/{{ group.Name }}"> {{ group.Name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Societies <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {%  for group in groups %}
+                                            {% if group.Is_Club == False %}
+                                                <li><a href="/associations/{{ group.Name }}"> {{group.Name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                
+
+                            </ul>
+                            
+                           <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown hasmenu">
+                                    <a href="#"><i class="fas fa-bell"></i></a>
+                                    <ul class ="dropdown-menu" style="color: #0b2e13">
+                                       {% for item in announcements %}
+                                            {% if item.CR %}
+                                                {% if item.CR.SID|make_list|slice:":5"|join:'' == instance.SID|make_list|slice:":5"|join:''  %}
+                                                    <li><a href="#">{{ item.Subject }}</a></li>
+                                                {% endif %}
+                                            {% else  %}
+                                                {% for member in members %}
+                                                    {% if item.GID.GID == member.GID.GID %}
+                                                        <li><a href="#">{{ item.Subject }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li class="dropdown hasmenu">
+                                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/profile">My Profile</a></li>
+                                        <li><a href="/settings">Change Password</a></li>
+                                        <li><a href="/">Logout</a></li>
+                                       
+                                    </ul>
+                                </li>
+                               <!-- <li><a href="#" data-toggle="modal" data-target="#LoginModal"><i class="material-icons">lock</i> Client Login</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div><!-- end container -->
+        </header><!-- end header -->
+
+        <section class="section lb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <!-- end widget -->
+
+                        <div class="home-tab clearfix">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#knowledge_tab">Events and Workshops</a></li>
+                                {% for member in members %}
+                                    {% if member.Is_EB %}
+                                        <div class="pull-right">
+                                        <button type="ask" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="askquery" style="background: white">Ask!</button>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">New Query</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form>
+                                                  <div class="form-group">
+                                                    <label for="message-text" class="col-form-label">Query:</label>
+                                                    <textarea class="form-control" id="message-text"></textarea>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                                <button type="button" class="btn btn-primary">Send query</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="knowledge_tab" class="tab-pane fade in active">
+                                    <aside class="topic-list">
+                                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                            {% for event in events %}
+                                                <div class="panel panel-default">
+                                                    <article class="well btn-group-sm clearfix">
+
+                                                        <div class="panel-heading" role="tab" id="headingOne">
+                                                            <div class="panel-title">
+                                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                    <header class="topic-title clearfix">
+                                                                        <h3>{{ event.Name }}</h3>
+                                                                    </header>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                            <div class="panel-body">
+                                                                <div class="topic-meta clearfix">
+                                                                    <div class="pull-left">
+                                                                         <a title="Interested">
+                                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                                        </a>
+                                                                    </div><!-- end left -->
+
+                                                                    <div class="pull-right">
+                                                                        <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="12 comments">
+                                                                            <i class="material-icons">comment</i>
+                                                                        </a>
+                                                                        <a class="btn btn-default btn-fab btn-fab-mini" href="#" data-toggle="tooltip" data-placement="bottom" title="Bookmark">
+                                                                            <i class="material-icons">bookmark_border</i>
+                                                                        </a>
+                                                                    </div><!-- end right -->
+                                                                </div><!-- end topic-meta -->
+
+                                                                <div class="topic-desc row-fluid clearfix">
+                                                                    <div class="col-sm-2">
+                                                                        <img src="{{ event.Logo.url }}" alt="" class="avatar img-circle img-responsive">
+                                                                    </div>
+                                                                    <div class="col-sm-10">
+                                                                        <p> {{ event.Description }}</p>
+                                                                    </div>
+                                                                </div><!-- end tpic-desc -->
+
+                                                                <footer class="topic-footer clearfix">
+                                                                    <div class="pull-right">
+                                                                        <div class="customshare">
+                                                                             <div class="list">
+                                                                                <div class="btn btn-default btn-fab btn-fab-mini"><i class="material-icons">share</i>
+                                                                                    <ul class="list-inline">
+                                                                                        <li><a href="#" class="tw"><i class="fa fa-twitter"></i></a></li>
+                                                                                        <li><a href="#" class="fb"><i class="fa fa-facebook"></i></a></li>
+                                                                                        <li><a href="#" class="gp"><i class="fa fa-google-plus"></i></a></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </footer><!-- end topic -->
+                                                            </div><!-- end panel-body -->
+                                                        </div><!-- end panel-collapse -->
+                                                    </article><!-- end article well -->
+                                                </div><!-- end panel -->
+                                            {% endfor %}
+                                            <div class="panel panel-default">
+                                                <article class="well btn-group-sm clearfix">
+                                                    <ul class="pagination">
+                                                        <li class="disabled"><a href="javascript:void(0)">&laquo;</a></li>
+                                                        <li class="active"><a href="javascript:void(0)">1</a></li>
+                                                        <li><a href="javascript:void(0)">2</a></li>
+                                                        <li><a href="javascript:void(0)">&raquo;</a></li>
+                                                    </ul>
+                                                </article>
+                                            </div><!-- end panel -->
+                                        </div><!-- end panel-group -->
+                                    </aside><!-- end topic-list -->
+                                </div><!-- end tab pane -->
+                            </div><!-- end tab-content -->
+                        </div><!-- end home-tab -->
+                    </div><!-- end col -->
+
+                    <div class="sidebar col-md-3">
+                        <div class="widget clearfix" id="kryesore" style="overflow-y: scroll;">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Announcements</h3>
+                                    {% for member in members %}
+                                        {% if member.Is_EB %}
+                                        <center>
+									    <button type="ask" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="askquery" style="background: white">Add</button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">New Query</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form>
+                                              <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Query:</label>
+                                                <textarea class="form-control" id="message-text"></textarea>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                            <button type="button" class="btn btn-primary">Send query</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div></center>
+                                    {% endif %}
+
+                                    {% endfor %}
+                                </div>
+                                <div class="panel-body">
+                                    <div class="list-group list-group-no-icon">
+                                        {% for ann in announcements %}
+                                            <div class="list-group-item">
+                                                <div class="row-topic">
+                                                    <header class="topic-title clearfix">
+                                                        <h3><a href="#">{{ ann.Subject }}</a></h3>
+                                                    </header>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-separator"></div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end widget -->
+                        <div class="widget clearfix" id="kryesore" style="overflow-y: scroll;">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Polls</h3>
+                                    {% for member in members %}
+                                        {% if member.Is_EB %}
+                                        <center>
+									    <button type="ask" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="askquery" style="background: white">Add</button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">New Query</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form>
+                                              <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Query:</label>
+                                                <textarea class="form-control" id="message-text"></textarea>
+                                              </div>
+                                            </form>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                            <button type="button" class="btn btn-primary">Send query</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div></center>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                                <div class="panel-body">
+                                    <div class="list-group list-group-no-icon">
+                                        {% for poll in polls %}
+                                            <div class="list-group-item">
+                                                <div class="row-topic">
+                                                    <header class="topic-title clearfix">
+                                                        <h3><a href="#">Tshirt</a></h3>
+                                                        <!-- <small>Item name: Helper</small>
+                                                        <small>Version: 1.0</small> -->
+                                                    </header>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-separator"></div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+
+        
+
+        <!-- CHAT -->
+        <div class="chat-wrapper" >
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="chatcordion">
+                    <a class="open-support btn btn-raised btn-info" data-toggle="collapse" data-parent="#chatcordion" href="#chatcordion1">
+                        <i class="material-icons">chat</i>
+                    </a>
+                </div>
+                <div class="panel-collapse collapse" id="chatcordion1">
+                    <span class="chat-logo"><i class="material-icons">announcement</i> Chat</span>
+                    <div class="panel-body">
+                        <ul class="chat">
+                            <li class="left clearfix">
+                                <span class="chat-img">
+                                    <img src="{%  static 'dash/assets/images/uploads/team_05.jpg'%}" alt="" class="avatar img-circle img-responsive alignleft">
+                                </span>
+                                <div class="chat-body clearfix">
+                                    <div class="chat-header">
+                                        <strong class="primary-font">Jenny DOE</strong> <small class="pull-right text-muted">
+                                        <span class="fa fa-clock-o"></span>12 mins ago</small>
+                                    </div>
+                                    <p>Hello anyone here? I need to purchase web hosting!</p>
+                                </div>
+                            </li>
+                      
+                            <li class="left clearfix">
+                                <span class="chat-img">
+                                    <img src="{% static 'dash/assets/images/uploads/team_06.jpg'%}" alt="" class="avatar img-circle img-responsive alignleft">
+                                </span>
+                                <div class="chat-body clearfix">
+                                    <div class="chat-header">
+                                        <strong class="label label-primary supportstaff">Staff</strong> <small class="pull-right text-muted">
+                                        <span class="fa fa-clock-o"></span>13 mins ago</small>
+                                    </div>
+                                    <p>Hey Jenny! Welcome to the Helper support chat!</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <input id="btn-input" type="text" class="form-control" placeholder="Type your message here..." />
+                        <button class="btn btn-raised btn-primary gr" id="btn-chat">Send</button>
+                    </div><!-- end panel-footer -->
+                </div><!-- end panel-collapse -->
+            </div><!-- end panel -->
+        </div><!-- end chat-wrapper -->
+
+        <!-- Modal -->
+        <div id="LoginModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Login Account</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="widget clearfix">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <div class="login-buttons">
+                                    <a href="#" class="btn btn-raised btn-facebook btn-block"><i class="fa fa-facebook"></i> Login with Facebook</a>
+                                    <a href="#" class="btn btn-raised btn-twitter btn-block"><i class="fa fa-twitter"></i> Login with Twitter</a>
+                                    <a href="#" class="btn btn-raised btn-google-plus btn-block"><i class="fa fa-google-plus"></i> Login with Google+</a>
+                                    </div>
+
+                                    <form class="sidebar-login">
+                                        <input type="text" class="form-control" placeholder="Username">
+                                        <input type="text" class="form-control" placeholder="Password">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> &nbsp;&nbsp;Remember me
+                                            </label>
+                                        </div>
+                                        <button type="button" class="btn btn-raised btn-info gr">Login</button>
+                                    </form> 
+                                </div>
+                            </div>
+                            <small>No account? <a href="/">Register</a></small>
+                        </div><!-- end widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end wrapper -->
+
+    <script src="{% static 'dash/assets/js/jquery.js'%}"></script>
+    <script src="{% static 'dash/assets/js/bootstrap.js'%}"></script>
+    <script src="{% static 'dash/assets/js/ripples.min.js'%}"></script>
+    <script src="{% static 'dash/assets/js/material.min.js'%}"></script>
+    <script src="{% static 'dash/assets/js/custom.js'%}"></script>
+
+</body>
+
+<!-- Mirrored from www.similaricons.com/demos/helper/# by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Apr 2019 13:44:11 GMT -->
+</html>
